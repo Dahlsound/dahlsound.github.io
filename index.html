@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <link rel="icon" href="https://dahlsound.se/onewebmedia/Dahlsound2_v2_WhiteLetters.png">
+  <link rel="preconnect" href="https://rsms.me/">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dahlsound - Ljudtekniker, producent & konsult.</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="top-bar">
+    <div class="top-controls">
+      <div class="menu">
+        <div class="menu-toggle" id="menuToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="menu-list" id="menuList">
+          <li><a href="#home" data-i18n="menu-home">HEM</a></li>
+          <li><a href="#about" data-i18n="menu-about">OM</a></li>
+          <li><a href="#contact" data-i18n="menu-contact">KONTAKT</a></li>
+        </ul>
+      </div>
+      <div class="language-toggle" id="languageToggle">EN</div>
+    </div>
+  </div>
+
+  <div class="background-overlay"></div>
+
+  <!-- HOME SECTION -->
+  <section class="home" id="home">
+    <div class="container">
+      <img src="https://dahlsound.se/onewebmedia/BG_Dahlsound_20241012_192828%20copy.png" alt="Dahlsound Logo" class="logo">
+      <p class="contact"><a href="mailto:niklas@dahlsound.se">niklas@dahlsound.se</a></p>
+      <p class="description" data-i18n="description">Ljudtekniker, producent & konsult.</p>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="about" id="about">
+    <h2 data-i18n="about-title">HEJ!</h2>
+  
+    <div class="about-text-wrapper">
+      <img src="https://dahlsound.se/onewebmedia/me_about.png" alt="Me" class="about-image right" />
+      <p data-i18n="about-text">
+        Jag heter Niklas och är ljudtekniker baserad i centrala Göteborg. Med lång erfarenhet av live-ljud, inspelningar och turnéer världen över erbjuder jag skräddarsydda lösningar för varje projekt – oavsett om det handlar om ett enmansjobb eller en större produktion. Jag samarbetar med pålitliga teknikleverantörer för att ta fram precis det som behövs för just ditt behov.
+      </p>
+    </div>
+  
+    <div class="about-text-wrapper cycling">
+      <img src="https://dahlsound.se/onewebmedia/me_bike2.png" alt="Bike" class="about-image left" />
+      <p data-i18n="about-cycling">
+        Cyklar spelar en stor roll i mitt liv. Jag använder dem för både transport, träning, nöje och arbete.
+        Därför utlovar jag att cykla till alla jobb inom Göteborgsområdet. Det är mitt försök att leva så hållbart som möjligt, kombinera intresse med yrkesliv - och samtidigt
+        minska trängsel och utsläpp i innerstaden. 
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-section" id="contact">
+    <h2 data-i18n="contact-title">KONTAKT</h2>
+    <p data-i18n="contact-text">
+      Säg gärna hej och berätta om ditt projekt:</p>
+      <p><a href="mailto:niklas@dahlsound.se">niklas@dahlsound.se</a></p>
+      <form action="https://formspree.io/f/xgvaporw" method="POST" id="contactForm">
+        <input type="text" name="name" placeholder="Ditt namn" required data-i18n-placeholder="form-name">
+        <input type="email" name="email" placeholder="Din e-post" required data-i18n-placeholder="form-email">
+        <textarea name="message" placeholder="Ditt meddelande" rows="6" required data-i18n-placeholder="form-message"></textarea>
+        <button type="submit" data-i18n="send-button">Skicka</button>
+      
+        <div id="successMessage" class="success-message" style="display: none;">
+          <span class="success-text" data-i18n="success-message">Tack! Ditt meddelande har skickats.</span>
+          <button id="closeSuccess" class="close-button" aria-label="Stäng">✕</button>
+        </div>
+      </form>
+  </section>
+
+  <!-- Menu toggle logic -->
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const menu = document.querySelector('.menu');
+  
+    // Toggle menu open/close
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent toggle click from closing the menu
+      menu.classList.toggle('open');
+    });
+  
+    // Close menu when clicking a link
+    document.querySelectorAll('.menu-list a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open');
+      });
+    });
+  
+    // Close menu when clicking outside
+    document.addEventListener('click', function (event) {
+      const isClickInside = menu.contains(event.target) || menuToggle.contains(event.target);
+      if (!isClickInside) {
+        menu.classList.remove('open');
+      }
+    });
+  </script>
+
+<script>
+  // Smooth scroll without changing URL hash
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href').substring(1);
+      const target = document.getElementById(targetId);
+
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+        history.replaceState(null, null, ' '); // Optional: clean the hash from URL
+      }
+    });
+  });
+</script>
+
+  <!-- Language toggle + translations -->
+  <script>
+    const langToggle = document.getElementById('languageToggle');
+    let currentLang = 'sv';
+
+    const translations = {
+      sv: {
+        "menu-home": "HEM",
+        "menu-about": "OM",
+        "menu-services": "TJÄNSTER",
+        "menu-contact": "KONTAKT",
+        "description": "Ljudtekniker, producent & konsult.",
+        "about-title": "HEJ!",
+        "about-text": "Jag heter Niklas och är ljudtekniker baserad i centrala Göteborg. Med lång erfarenhet av live-ljud, inspelningar och turnéer världen över erbjuder jag skräddarsydda lösningar för varje projekt – oavsett om det handlar om ett enmansjobb eller en större produktion. Jag samarbetar med pålitliga teknikleverantörer för att ta fram precis det som behövs för just ditt behov.",
+        "about-cycling": "Cyklar spelar en stor roll i mitt liv. Jag använder dem för både transport, träning, nöje och arbete. Därför utlovar jag att cykla till alla jobb inom Göteborgsområdet. Det är mitt försök att leva så hållbart som möjligt, kombinera intresse med yrkesliv - och samtidigt minska trängsel och utsläpp i innerstaden. ",
+        "contact-title": "KONTAKT",
+        "contact-text": "Säg gärna hej och berätta om ditt projekt:",
+        "send-button": "Skicka",
+        "form-name": "Ditt namn",
+        "form-email": "Din e-post",
+        "form-message": "Ditt meddelande",
+       "success-message": "Tack! Ditt meddelande har skickats.",
+       "error-message": "Något gick fel. Försök igen senare."
+      },
+      en: {
+        "menu-home": "HOME",
+        "menu-about": "ABOUT",
+        "menu-services": "SERVICES",
+        "menu-contact": "CONTACT",
+        "description": "Audio engineer, producer & consultant.",
+        "about-title": "HELLO!",
+        "about-text": "I’m Niklas, an audio engineer based in central Gothenburg, Sweden. With years of experience in live sound, recording, and touring across the globe, I offer tailored solutions to fit each project – whether it’s a one-person job or a full production. I work closely with trusted tech partners to put together the right setup for your needs.",
+        "about-cycling": "Bikes play a big role in my life. I use them for transportation, exercise, work and my own enjoyment. That’s why I make it a point to ride my bike to every job in the Gothenburg area. It’s my attempt to live as sustainably as possible, combine passion with profession — and at the same time reduce congestion and emissions in the city center.",
+        "contact-title": "CONTACT",
+        "contact-text": "Feel free to say hi and tell me about your project:",
+        "send-button": "Send",
+        "form-name": "Your name",
+        "form-email": "Your email",
+        "form-message": "Your message",
+        "success-message": "Thanks! Your message has been sent.",
+        "error-message": "Something went wrong. Please try again later."
+      }
+    };
+
+    langToggle.addEventListener('click', () => {
+  currentLang = currentLang === 'sv' ? 'en' : 'sv';
+  langToggle.textContent = currentLang === 'sv' ? 'EN' : 'SV';
+
+  // Update text content
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = translations[currentLang][key];
+  });
+
+  // Update placeholder text
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    el.setAttribute('placeholder', translations[currentLang][key]);
+  });
+});
+  </script>
+<script>
+  const form = document.getElementById("contactForm");
+  const successMessage = document.getElementById("successMessage");
+  const closeBtn = document.getElementById("closeSuccess");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const data = new FormData(form);
+
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: data,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (response.ok) {
+      form.reset();
+      successMessage.style.display = "flex";
+    } else {
+      successMessage.querySelector(".success-text").textContent =
+        "Något gick fel. Försök igen senare.";
+      successMessage.style.display = "flex";
+    }
+  });
+
+  closeBtn.addEventListener("click", () => {
+    successMessage.style.display = "none";
+  });
+</script>
+<footer class="site-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Dahlsound. All rights reserved.</p>
+  
+      <div class="footer-icons">
+        <a href="https://instagram.com/dahlsound" target="_blank" class="icon instagram" aria-label="Instagram"></a>
+        <a href="https://facebook.com/dahlsound" target="_blank" class="icon facebook" aria-label="Facebook"></a>
+        <a href="https://www.strava.com/athletes/81750090" target="_blank" class="icon strava" aria-label="Strava"></a>
+      </div>
+  
+      <p class="back-to-top"><a href="#home">↑ Back to top</a></p>
+    </div>
+  </footer>
+  <script>
+    window.addEventListener("load", () => {
+      const menuToggle = document.querySelector(".menu-toggle");
+      const langToggle = document.querySelector(".language-toggle");
+      const homeSection = document.querySelector("#home");
+  
+      function handleScroll() {
+        const scrollY = window.scrollY;
+        const heroHeight = homeSection.offsetHeight;
+  
+        const menuOffsetFromTop = 20;
+        const langOffsetFromBottom = 20;
+        const windowHeight = window.innerHeight;
+  
+        const menuTriggerPoint = heroHeight - menuOffsetFromTop;
+        const langTriggerPoint = heroHeight - (windowHeight - langOffsetFromBottom);
+  
+        if (scrollY >= menuTriggerPoint) {
+          menuToggle.classList.add("scrolled");
+        } else {
+          menuToggle.classList.remove("scrolled");
+        }
+  
+        if (scrollY >= langTriggerPoint) {
+          langToggle.classList.add("scrolled");
+        } else {
+          langToggle.classList.remove("scrolled");
+        }
+      }
+  
+      // Listen to both scroll AND resize events
+      window.addEventListener("scroll", handleScroll);
+      window.addEventListener("resize", handleScroll); // 🧠 this is the fix
+      handleScroll(); // initial call
+    });
+  </script>
+</body>
+</html>
